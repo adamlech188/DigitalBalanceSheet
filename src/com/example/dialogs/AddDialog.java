@@ -30,6 +30,8 @@ public class AddDialog
     private EditText amountField;
     private Button   addTransactionButton;
     private Button   cancelButton;
+	
+	
     private TextView titleView;
 
 
