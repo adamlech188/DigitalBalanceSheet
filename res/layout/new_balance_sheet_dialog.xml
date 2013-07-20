@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/parent"
+    android:layout_width="220dip"
+    android:layout_height="wrap_content"
+    android:background="@drawable/dialogshape"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/enterNewBalanceText"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:padding="5dp"
+        android:text="@string/enter_new_balance"
+        android:textSize="20sp" >
+    </TextView>
+
+    <EditText
+        android:id="@+id/newBalanceField"
+        android:layout_width="fill_parent"
+        android:layout_height="40dip"
+        android:layout_margin="10dp"
+        android:background="@drawable/backdialog"
+        android:inputType="numberDecimal"
+        android:padding="10dp" >
+    </EditText>
+
+    <Button
+        android:id="@+id/new_table_button"
+        android:layout_width="fill_parent"
+        android:layout_height="40dp"
+        android:layout_margin="10dp"
+        android:background="@drawable/backdialog"
+        android:padding="10dp"
+        android:text="@string/create_new_table" >
+    </Button>
+
+    <Button
+        android:id="@+id/cancelButton"
+        android:layout_width="fill_parent"
+        android:layout_height="40dp"
+        android:layout_margin="10dp"
+        android:background="@drawable/backdialog"
+        android:padding="10dp"
+        android:text="@string/cancel" >
+    </Button>
+
+</LinearLayout>

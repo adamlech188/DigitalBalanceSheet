@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/myalertback" >
+
+    <TextView
+        android:id="@+id/warning"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="15dip"
+        android:text="@string/warning"
+        android:textColor="#ffffff"
+        android:textSize="22sp" >
+    </TextView>
+
+    <LinearLayout
+        android:id="@+id/twoButtons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/warning"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/yesButton"
+            android:layout_width="100dip"
+            android:layout_height="wrap_content"
+            android:layout_margin="30dp"
+            android:background="@drawable/buttonshape"
+            android:text="@string/yes"
+            android:textColor="#ffffff"
+            android:textSize="35sp" >
+        </Button>
+
+        <Button
+            android:id="@+id/noButton"
+            android:layout_width="100dip"
+            android:layout_height="wrap_content"
+            android:layout_margin="30dp"
+            android:background="@drawable/buttonshape"
+            android:text="@string/no"
+            android:textColor="#ffffff"
+            android:textSize="35sp" >
+        </Button>
+    </LinearLayout>
+
+</RelativeLayout>

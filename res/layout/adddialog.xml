@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/parent"
+    android:layout_width="300dip"
+    android:layout_height="wrap_content"
+    android:background="@drawable/dialogshape"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/titleView"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:gravity="center"
+        android:text="@string/title"
+        android:textSize="22sp" >
+    </TextView>
+
+    <LinearLayout
+        android:id="@+id/placeRow"
+        android:layout_width="fill_parent"
+        android:layout_height="66dp"
+        android:orientation="horizontal"
+        android:padding="10dip" >
+
+        <TextView
+            android:id="@+id/placeView"
+            android:layout_width="80dip"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="18dp"
+            android:text="@string/place"
+            android:textSize="22sp" >
+        </TextView>
+
+        <EditText
+            android:id="@+id/placeDialog"
+            android:layout_width="fill_parent"
+            android:layout_height="34dip"
+            android:background="@drawable/backdialog"
+            android:inputType="textCapSentences"
+            android:padding="7dip" >
+        </EditText>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/amountRow"
+        android:layout_width="fill_parent"
+        android:layout_height="66dp"
+        android:orientation="horizontal"
+        android:paddingBottom="10dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp" >
+
+        <TextView
+            android:id="@+id/amountView"
+            android:layout_width="80dip"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="18dp"
+            android:text="@string/amount"
+            android:textSize="22sp" >
+        </TextView>
+
+        <EditText
+            android:id="@+id/amountDialog"
+            android:layout_width="fill_parent"
+            android:layout_height="34dip"
+            android:background="@drawable/backdialog"
+            android:inputType="numberDecimal"
+            android:padding="7dip" >
+        </EditText>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/buttonsRow"
+        android:layout_width="fill_parent"
+        android:layout_height="66dp"
+        android:orientation="horizontal"
+        android:paddingBottom="10dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp" >
+
+        <Button
+            android:id="@+id/addTransactionButton"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/backdialog"
+            android:padding="5dp"
+            android:text="@string/add" >
+        </Button>
+
+        <Button
+            android:id="@+id/cancelButton"
+            android:layout_width="fill_parent"
+            android:layout_height="40dp"
+            android:background="@drawable/backdialog"
+            android:padding="5dp"
+            android:text="@string/cancel" >
+        </Button>
+    </LinearLayout>
+
+</LinearLayout>
