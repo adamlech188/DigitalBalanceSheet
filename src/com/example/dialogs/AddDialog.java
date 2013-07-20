@@ -65,6 +65,8 @@ public class AddDialog
         getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.adddialog);
+		
+		
         // Buttons
         cancelButton = (Button)findViewById(R.id.cancelButton);
         cancelButton.setOnTouchListener(this);
