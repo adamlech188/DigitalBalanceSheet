@@ -60,6 +60,7 @@ public class ExpenseTrackerActivity
 
         monthsListView = (ListView)findViewById(R.id.months_list);
         transactionArray = dataSource.getAllTransaction();
+
         if (!transactionArray.isEmpty())
         {
             try
@@ -108,8 +109,8 @@ public class ExpenseTrackerActivity
         {
             myAlertDialog.show();
             DialogListener dialogListener = new DialogListener();
-            myAlertDialog.getYesButton().setOnTouchListener(dialogListener);
-            myAlertDialog.getNoButton().setOnTouchListener(dialogListener);
+            myAlertDialog.setYesButtonOnTouchListener(dialogListener);
+            myAlertDialog.setNoButtonOnTouchListener(dialogListener);
 
         }
         return true;
@@ -132,6 +133,20 @@ public class ExpenseTrackerActivity
         OnTouchListener dialogListener = new DialogListener();
         addTransactionButton.setOnTouchListener(dialogListener);
 
+    }
+
+
+    // ----------------------------------------------------------
+    /**
+     * Deletes most recent transaction.
+     *
+     * @param view
+     */
+    public void deleteButtonClicked(View view)
+    {
+//        Transaction removedTransaction = transactionArray.remove(0);
+//        dataSource.deleteTransaction(removedTransaction);
+//        myAdapter.notifyDataSetChanged();
     }
 
 
@@ -240,10 +255,24 @@ public class ExpenseTrackerActivity
                 {
                     myAlertDialog.dismiss();
                     newBalanceSheetDialog.show();
+                    newBalanceSheetDialog.setCancelButtonOnTouchListener(this);
+                    newBalanceSheetDialog
+                        .setCreateNewBalanceSheetOnTouchListener(this);
                 }
                 if (v.getId() == R.id.noButton)
                 {
                     myAlertDialog.dismiss();
+                }
+                if (v.getId() == R.id.new_table_button)
+                {
+
+                    CURRENT_BALANCE = newBalanceSheetDialog.getNewBalance();
+                    newBalanceSheetDialog.dismiss();
+
+                }
+                if (v.getId() == R.id.cancelButton)
+                {
+                    newBalanceSheetDialog.dismiss();
                 }
 
             }

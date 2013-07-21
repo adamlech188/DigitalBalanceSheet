@@ -88,4 +88,21 @@ public class NewBalanceSheetDialog
     {
         cancelButton.setOnTouchListener(ontouchlistener);
     }
+
+
+    // ----------------------------------------------------------
+    /**
+     * Gets new balance as set in new balance dialog.
+     *
+     * @return Float
+     */
+    public Float getNewBalance()
+    {
+        String currentBalance = balanceField.getText().toString();
+        if (currentBalance.equals(""))
+        {
+            return null;
+        }
+        return Float.parseFloat(currentBalance);
+    }
 }

@@ -134,6 +134,7 @@ public class TransactionsDataSource
                 cursor.getString(3),
                 balance);
         transaction.setDate(cursor.getString(1));
+        transaction.setId(Long.parseLong(cursor.getString(0)));
         return transaction;
     }
 

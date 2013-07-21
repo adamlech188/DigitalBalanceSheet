@@ -1,5 +1,6 @@
 package com.example.dialogs;
 
+import android.view.View.OnTouchListener;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.view.Window;
@@ -69,11 +70,11 @@ public class MyAlertDialog
     /**
      * Gets yesButton
      *
-     * @return yesButton
+     * @param ontouchlistener
      */
-    public Button getYesButton()
+    public void setYesButtonOnTouchListener(OnTouchListener ontouchlistener)
     {
-        return this.yesButton;
+        yesButton.setOnTouchListener(ontouchlistener);
     }
 
 
@@ -81,11 +82,11 @@ public class MyAlertDialog
     /**
      * Gets noButton
      *
-     * @return noButton
+     * @param ontouchlistener
      */
-    public Button getNoButton()
+    public void setNoButtonOnTouchListener(OnTouchListener ontouchlistener)
     {
-        return this.noButton;
+        noButton.setOnTouchListener(ontouchlistener);
     }
 
 }

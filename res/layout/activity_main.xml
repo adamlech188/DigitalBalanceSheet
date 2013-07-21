@@ -26,9 +26,18 @@
         android:id="@+id/depositButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:layout_above="@+id/deleteButton"
         android:layout_alignParentLeft="true"
         android:onClick="depositButtonClicked"
         android:text="@string/deposit" />
+
+    <Button
+        android:id="@+id/deleteButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:onClick="deleteButtonClicked"
+        android:text="@string/delete" />
 
 </RelativeLayout>
