@@ -1,5 +1,8 @@
 package com.example.expensetracker;
 
+import com.example.expensetracker.MyAdapter;
+import com.example.expensetracker.Balance;
+import com.example.expensetracker.Transaction;
 import com.example.dialogs.NewBalanceSheetDialog;
 import com.example.dialogs.MyAlertDialog;
 import android.view.MenuItem;
@@ -80,8 +83,12 @@ public class ExpenseTrackerActivity
                 e.printStackTrace();
             }
         }
-        myAdapter = new MyAdapter(this, (ArrayList)transactionArray);
-        monthsListView.setAdapter(myAdapter);
+        if (transactionArray.size() > 0)
+        {
+            transactionArray.remove(transactionArray.size() - 1);
+            myAdapter = new MyAdapter(this, (ArrayList)transactionArray);
+            monthsListView.setAdapter(myAdapter);
+        }
 
     }
 
@@ -144,9 +151,11 @@ public class ExpenseTrackerActivity
      */
     public void deleteButtonClicked(View view)
     {
-//        Transaction removedTransaction = transactionArray.remove(0);
-//        dataSource.deleteTransaction(removedTransaction);
-//        myAdapter.notifyDataSetChanged();
+        // if(transactionArray.size() >0) {
+// Transaction removedTransaction = transactionArray.remove(0);
+// dataSource.deleteTransaction(removedTransaction);
+// myAdapter.notifyDataSetChanged();
+        // }
     }
 
 
@@ -265,8 +274,18 @@ public class ExpenseTrackerActivity
                 }
                 if (v.getId() == R.id.new_table_button)
                 {
-
-                    CURRENT_BALANCE = newBalanceSheetDialog.getNewBalance();
+                    if (newBalanceSheetDialog.getNewBalance() != null)
+                    {
+                        CURRENT_BALANCE = newBalanceSheetDialog.getNewBalance();
+                        dataSource.truncate();
+                        transactionArray.removeAll(transactionArray);
+                        Balance currentBalance = new Balance();
+                        currentBalance.setBalance(CURRENT_BALANCE.toString());
+                        Transaction invisibleTransaction =
+                            new Transaction("Invisible", "0", currentBalance);
+                        dataSource.insertTransaction(invisibleTransaction);
+                        myAdapter.notifyDataSetChanged();
+                    }
                     newBalanceSheetDialog.dismiss();
 
                 }
