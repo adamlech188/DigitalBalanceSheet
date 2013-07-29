@@ -75,6 +75,7 @@ public class Balance
     // ----------------------------------------------------------
     /**
      * Adds given amount to the balance.
+     *
      * @param withdrawal
      * @return balance - current balance
      */
@@ -88,9 +89,21 @@ public class Balance
     private String format(String somePrice)
     {
 
-        String returnValue =
-            "$" + String.format("%.2f", Float.parseFloat(somePrice));
+        String returnValue;
+        if (somePrice.charAt(0) == '-')
+        {
+            returnValue =
+                "-$"
+                    + String.format(
+                        "%.2f",
+                        Float.parseFloat(somePrice.substring(1)));
+        }
+        else
+        {
 
+            returnValue =
+                "$" + String.format("%.2f", Float.parseFloat(somePrice));
+        }
         return returnValue;
     }
 
