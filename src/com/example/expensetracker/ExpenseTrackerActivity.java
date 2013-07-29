@@ -151,11 +151,11 @@ public class ExpenseTrackerActivity
      */
     public void deleteButtonClicked(View view)
     {
-        // if(transactionArray.size() >0) {
+//         if(transactionArray.size() >0) {
 // Transaction removedTransaction = transactionArray.remove(0);
 // dataSource.deleteTransaction(removedTransaction);
 // myAdapter.notifyDataSetChanged();
-        // }
+//         }
     }
 
 

@@ -32,14 +32,15 @@
             android:textSize="22sp" >
         </TextView>
 
-        <EditText
+        <AutoCompleteTextView
             android:id="@+id/placeDialog"
             android:layout_width="fill_parent"
             android:layout_height="34dip"
             android:background="@drawable/backdialog"
+            android:completionThreshold="1"
             android:inputType="textCapSentences"
             android:padding="7dip" >
-        </EditText>
+        </AutoCompleteTextView>
     </LinearLayout>
 
     <LinearLayout

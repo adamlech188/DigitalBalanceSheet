@@ -1,5 +1,9 @@
 package com.example.dialogs;
 
+import android.widget.ArrayAdapter;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.widget.AutoCompleteTextView;
 import com.example.expensetracker.R;
 import android.widget.EditText;
 import android.graphics.Color;
@@ -26,13 +30,14 @@ public class AddDialog
     extends Dialog
     implements OnTouchListener
 {
-    private EditText placeField;
-    private EditText amountField;
-    private Button   addTransactionButton;
-    private Button   cancelButton;
-	
-	
-    private TextView titleView;
+    private AutoCompleteTextView placeField;
+    private EditText             amountField;
+    private Button               addTransactionButton;
+    private Button               cancelButton;
+    private Context              currentContext;
+    private TextView             titleView;
+    private final String[]       frequentPlaces = { "Walmart", "McDonald's",
+        "Giant", "Sodex", "ATM"                };
 
 
     // ----------------------------------------------------------
@@ -44,6 +49,7 @@ public class AddDialog
     public AddDialog(Context context)
     {
         super(context);
+        this.currentContext = context;
 
     }
 
@@ -65,8 +71,7 @@ public class AddDialog
         getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.adddialog);
-		
-		
+
         // Buttons
         cancelButton = (Button)findViewById(R.id.cancelButton);
         cancelButton.setOnTouchListener(this);
@@ -74,7 +79,15 @@ public class AddDialog
         addTransactionButton = (Button)findViewById(R.id.addTransactionButton);
         addTransactionButton.setOnTouchListener(this);
 
-        placeField = (EditText)findViewById(R.id.placeDialog);
+        placeField = (AutoCompleteTextView)findViewById(R.id.placeDialog);
+        TextWatcher myTextWatcher = new MyTextWatcher();
+        placeField.addTextChangedListener(myTextWatcher);
+        ArrayAdapter<String> myAdapter =
+            new ArrayAdapter<String>(
+                currentContext,
+                android.R.layout.simple_dropdown_item_1line,
+                frequentPlaces);
+        placeField.setAdapter(myAdapter);
         amountField = (EditText)findViewById(R.id.amountDialog);
 
         // Title
@@ -144,5 +157,40 @@ public class AddDialog
     public void setTitle(CharSequence title)
     {
         titleView.setText(title);
+    }
+
+
+    private class MyTextWatcher
+        implements TextWatcher
+    {
+
+        public void afterTextChanged(Editable s)
+        {
+            // TODO Auto-generated method stub
+
+        }
+
+
+        public void beforeTextChanged(
+            CharSequence s,
+            int start,
+            int count,
+            int after)
+        {
+            // TODO Auto-generated method stub
+
+        }
+
+
+        public void onTextChanged(
+            CharSequence s,
+            int start,
+            int before,
+            int count)
+        {
+            // TODO Auto-generated method stub
+
+        }
+
     }
 }
