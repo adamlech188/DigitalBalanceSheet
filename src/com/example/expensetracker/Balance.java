@@ -48,6 +48,18 @@ public class Balance
 
     // ----------------------------------------------------------
     /**
+     * Gets current balance as float.
+     *
+     * @return balance
+     */
+    public Float getFloatBalance()
+    {
+        return this.balance;
+    }
+
+
+    // ----------------------------------------------------------
+    /**
      * Sets current balance.
      *
      * @param balSequence

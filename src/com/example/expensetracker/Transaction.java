@@ -94,6 +94,18 @@ public class Transaction
     }
 
 
+    // ----------------------------------------------------------
+    /**
+     * Returns balance object.
+     *
+     * @return balance
+     */
+    public Balance getCurrentBalance()
+    {
+        return currentBalance;
+    }
+
+
     private String format(CharSequence somePrice)
     {
 

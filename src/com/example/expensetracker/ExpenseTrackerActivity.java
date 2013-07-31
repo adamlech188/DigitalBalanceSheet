@@ -69,8 +69,8 @@ public class ExpenseTrackerActivity
             try
             {
                 CURRENT_BALANCE =
-                    Float.parseFloat(transactionArray.get(0).getBalance()
-                        .substring(1));
+                    transactionArray.get(0).getCurrentBalance()
+                        .getFloatBalance();
             }
             catch (NumberFormatException e)
             {
@@ -151,11 +151,14 @@ public class ExpenseTrackerActivity
      */
     public void deleteButtonClicked(View view)
     {
-//         if(transactionArray.size() >0) {
+// if (transactionArray.size() > 0)
+// {
 // Transaction removedTransaction = transactionArray.remove(0);
+// CURRENT_BALANCE =
+// transactionArray.get(0).getCurrentBalance().getFloatBalance();
 // dataSource.deleteTransaction(removedTransaction);
 // myAdapter.notifyDataSetChanged();
-//         }
+// }
     }
 
 
@@ -299,4 +302,7 @@ public class ExpenseTrackerActivity
         }
 
     }
+
+
+
 }

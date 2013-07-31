@@ -1,5 +1,6 @@
 package com.example.dialogs;
 
+import java.util.ArrayList;
 import android.widget.ArrayAdapter;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -82,11 +83,16 @@ public class AddDialog
         placeField = (AutoCompleteTextView)findViewById(R.id.placeDialog);
         TextWatcher myTextWatcher = new MyTextWatcher();
         placeField.addTextChangedListener(myTextWatcher);
+        ArrayList<String> stringArray = new ArrayList<String>(20);
+        stringArray.add("Walmart");
+        stringArray.add("McDonald's");
+        stringArray.add("Giant");
+        stringArray.add("Sodex");
         ArrayAdapter<String> myAdapter =
             new ArrayAdapter<String>(
                 currentContext,
                 android.R.layout.simple_dropdown_item_1line,
-                frequentPlaces);
+                stringArray);
         placeField.setAdapter(myAdapter);
         amountField = (EditText)findViewById(R.id.amountDialog);
 

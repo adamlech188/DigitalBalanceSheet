@@ -86,8 +86,6 @@ public class TransactionsDataSource
             MySQLiteHelper.COLUMN_ID + " = " + tranId,
             null);
 
-
-
     }
 
 
@@ -107,7 +105,7 @@ public class TransactionsDataSource
         while (!cursor.isAfterLast())
         {
             Transaction transaction = cursorToTransaction(cursor);
-            transactions.add(0,transaction);
+            transactions.add(0, transaction);
             cursor.moveToNext();
 
         }
@@ -127,16 +125,21 @@ public class TransactionsDataSource
     private Transaction cursorToTransaction(Cursor cursor)
     {
         Balance balance = new Balance();
-        balance.setBalance(cursor.getString(4).substring(1));
+        String stringCursor = cursor.getString(4);
+        if (stringCursor.charAt(0) == '-')
+        {
+            stringCursor = stringCursor.charAt(0) + stringCursor.substring(2);
+            balance.setBalance(stringCursor);
+        }
+        else
+        {
+            balance.setBalance(stringCursor.substring(1));
+        }
         Transaction transaction =
-            new Transaction(
-                cursor.getString(2),
-                cursor.getString(3),
-                balance);
+            new Transaction(cursor.getString(2), cursor.getString(3), balance);
         transaction.setDate(cursor.getString(1));
         transaction.setId(Long.parseLong(cursor.getString(0)));
         return transaction;
     }
-
 
 }
