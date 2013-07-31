@@ -56,6 +56,7 @@ public class ExpenseTrackerActivity
 
         // Dialog box widgets.
         addDialogBox = new AddDialog(this);
+
         myAlertDialog = new MyAlertDialog(this);
         newBalanceSheetDialog = new NewBalanceSheetDialog(this);
 
@@ -63,7 +64,7 @@ public class ExpenseTrackerActivity
 
         monthsListView = (ListView)findViewById(R.id.months_list);
         transactionArray = dataSource.getAllTransaction();
-
+        addDialogBox.setLastTwentyPlaces(this.getLastTwentyPlaces());
         if (!transactionArray.isEmpty())
         {
             try
@@ -304,5 +305,25 @@ public class ExpenseTrackerActivity
     }
 
 
+    // ----------------------------------------------------------
+    /**
+     * Gets a string of last twenty or less places.
+     *
+     * @param transactionArray
+     * @return
+     */
+    private ArrayList<String> getLastTwentyPlaces()
+    {
+        ArrayList<String> twentyplacesList = new ArrayList<String>();
+        for (int i = 0; i < 21 && i < transactionArray.size(); i++)
+        {
+            String place = transactionArray.get(i).getPlace().toString();
+            if (!twentyplacesList.contains(place))
+            {
+                twentyplacesList.add(place);
+            }
+        }
+        return twentyplacesList;
+    }
 
 }

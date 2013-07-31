@@ -90,16 +90,5 @@ public class MyAlertDialog
     {
         noButton.setOnTouchListener(ontouchlistener);
     }
-    public ArrayList<String> getLastTwentyPlaces(ArrayList<Transaction> transactionArray)
-    {
-        ArrayList<String> returnList = new ArrayList<String>();
-        for (int i = 0; i < 21 && i < transactionArray.size(); i++)
-        {
-              String place = transactionArray.get(i).getPlace().toString();
-              if(!returnList.contains(place)) {
-                  returnList.add(place);
-              }
-        }
-        return returnList;
-    }
+
 }

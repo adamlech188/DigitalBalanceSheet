@@ -1,5 +1,6 @@
 package com.example.dialogs;
 
+import com.example.expensetracker.Transaction;
 import java.util.ArrayList;
 import android.widget.ArrayAdapter;
 import android.text.Editable;
@@ -37,8 +38,7 @@ public class AddDialog
     private Button               cancelButton;
     private Context              currentContext;
     private TextView             titleView;
-    private final String[]       frequentPlaces = { "Walmart", "McDonald's",
-        "Giant", "Sodex", "ATM"                };
+    private ArrayList<String>    lastTwentyPlaces;
 
 
     // ----------------------------------------------------------
@@ -83,16 +83,12 @@ public class AddDialog
         placeField = (AutoCompleteTextView)findViewById(R.id.placeDialog);
         TextWatcher myTextWatcher = new MyTextWatcher();
         placeField.addTextChangedListener(myTextWatcher);
-        ArrayList<String> stringArray = new ArrayList<String>(20);
-        stringArray.add("Walmart");
-        stringArray.add("McDonald's");
-        stringArray.add("Giant");
-        stringArray.add("Sodex");
+
         ArrayAdapter<String> myAdapter =
             new ArrayAdapter<String>(
                 currentContext,
                 android.R.layout.simple_dropdown_item_1line,
-                stringArray);
+                lastTwentyPlaces);
         placeField.setAdapter(myAdapter);
         amountField = (EditText)findViewById(R.id.amountDialog);
 
@@ -198,5 +194,16 @@ public class AddDialog
 
         }
 
+    }
+
+
+    // ----------------------------------------------------------
+    /**
+     * Sets
+     * @param lastTwentyPlaces
+     */
+    public void setLastTwentyPlaces(ArrayList<String> lastTwentyPlaces)
+    {
+        this.lastTwentyPlaces = lastTwentyPlaces;
     }
 }
