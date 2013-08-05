@@ -11,7 +11,7 @@
         android:padding="15dip"
         android:text="@string/warning"
         android:textColor="#ffffff"
-        android:textSize="22sp" >
+        android:textSize="22sp"  >
     </TextView>
 
     <LinearLayout

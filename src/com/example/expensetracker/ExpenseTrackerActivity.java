@@ -4,7 +4,7 @@ import com.example.expensetracker.MyAdapter;
 import com.example.expensetracker.Balance;
 import com.example.expensetracker.Transaction;
 import com.example.dialogs.NewBalanceSheetDialog;
-import com.example.dialogs.MyAlertDialog;
+import com.example.dialogs.AlertDialog;
 import android.view.MenuItem;
 import com.example.expensetracker.R;
 import android.widget.Button;
@@ -35,7 +35,7 @@ public class ExpenseTrackerActivity
     private ListView               monthsListView;
     private AddDialog              addDialogBox;
     private Float                  CURRENT_BALANCE = -12.98f;
-    private MyAlertDialog          myAlertDialog;
+    private AlertDialog            myAlertDialog;
 
     /**
      * Record array
@@ -57,7 +57,7 @@ public class ExpenseTrackerActivity
         // Dialog box widgets.
         addDialogBox = new AddDialog(this);
 
-        myAlertDialog = new MyAlertDialog(this);
+        myAlertDialog = new AlertDialog(this);
         newBalanceSheetDialog = new NewBalanceSheetDialog(this);
 
         dataSource.open();
@@ -116,6 +116,7 @@ public class ExpenseTrackerActivity
         if (item.getItemId() == R.id.new_balance)
         {
             myAlertDialog.show();
+            myAlertDialog.setNewSheetBalance(true);
             DialogListener dialogListener = new DialogListener();
             myAlertDialog.setYesButtonOnTouchListener(dialogListener);
             myAlertDialog.setNoButtonOnTouchListener(dialogListener);
@@ -152,14 +153,16 @@ public class ExpenseTrackerActivity
      */
     public void deleteButtonClicked(View view)
     {
-// if (transactionArray.size() > 0)
-// {
-// Transaction removedTransaction = transactionArray.remove(0);
-// CURRENT_BALANCE =
-// transactionArray.get(0).getCurrentBalance().getFloatBalance();
-// dataSource.deleteTransaction(removedTransaction);
-// myAdapter.notifyDataSetChanged();
-// }
+
+        if (transactionArray.size() > 1)
+        {
+            myAlertDialog.show();
+            myAlertDialog.setDeleteRecentTransation(true);
+            DialogListener dialogListener = new DialogListener();
+            myAlertDialog.setYesButtonOnTouchListener(dialogListener);
+            myAlertDialog.setNoButtonOnTouchListener(dialogListener);
+
+        }
     }
 
 
@@ -264,13 +267,25 @@ public class ExpenseTrackerActivity
                     addRecord('+');
                     addDialogBox.dismiss();
                 }
-                if (v.getId() == R.id.yesButton)
+                if (v.getId() == R.id.yesButton
+                    && !myAlertDialog.isDeleteButton())
                 {
                     myAlertDialog.dismiss();
                     newBalanceSheetDialog.show();
                     newBalanceSheetDialog.setCancelButtonOnTouchListener(this);
                     newBalanceSheetDialog
                         .setCreateNewBalanceSheetOnTouchListener(this);
+                }
+                if (v.getId() == R.id.yesButton
+                    && myAlertDialog.isDeleteButton())
+                {
+                    myAlertDialog.dismiss();
+                    Transaction removedTransaction = transactionArray.remove(0);
+                    CURRENT_BALANCE =
+                        transactionArray.get(0).getCurrentBalance()
+                            .getFloatBalance();
+                    dataSource.deleteTransaction(removedTransaction);
+                    myAdapter.notifyDataSetChanged();
                 }
                 if (v.getId() == R.id.noButton)
                 {
