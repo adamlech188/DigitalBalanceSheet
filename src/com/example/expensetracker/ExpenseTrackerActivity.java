@@ -34,7 +34,7 @@ public class ExpenseTrackerActivity
 
     private ListView               monthsListView;
     private AddDialog              addDialogBox;
-    private Float                  CURRENT_BALANCE = -12.98f;
+    private Float                  CURRENT_BALANCE = null;
     private AlertDialog            myAlertDialog;
 
     /**
@@ -135,12 +135,16 @@ public class ExpenseTrackerActivity
      */
     public void withdrawalButtonClicked(View view)
     {
-        isWithdrawal = true;
-        addDialogBox.show();
-        addDialogBox.setTitle("WITHDRAWAL");
-        Button addTransactionButton = addDialogBox.getaddTransactionButton();
-        OnTouchListener dialogListener = new DialogListener();
-        addTransactionButton.setOnTouchListener(dialogListener);
+        if (CURRENT_BALANCE != null)
+        {
+            isWithdrawal = true;
+            addDialogBox.show();
+            addDialogBox.setTitle("WITHDRAWAL");
+            Button addTransactionButton =
+                addDialogBox.getaddTransactionButton();
+            OnTouchListener dialogListener = new DialogListener();
+            addTransactionButton.setOnTouchListener(dialogListener);
+        }
 
     }
 
@@ -154,9 +158,10 @@ public class ExpenseTrackerActivity
     public void deleteButtonClicked(View view)
     {
 
-        if (transactionArray.size() > 1)
+        if (transactionArray.size() > 0)
         {
             myAlertDialog.show();
+
             myAlertDialog.setDeleteRecentTransation(true);
             DialogListener dialogListener = new DialogListener();
             myAlertDialog.setYesButtonOnTouchListener(dialogListener);
@@ -174,12 +179,16 @@ public class ExpenseTrackerActivity
      */
     public void depositButtonClicked(View view)
     {
-        isWithdrawal = false;
-        addDialogBox.show();
-        addDialogBox.setTitle("DEPOSIT");
-        Button addTransactionButton = addDialogBox.getaddTransactionButton();
-        OnTouchListener dialogListener = new DialogListener();
-        addTransactionButton.setOnTouchListener(dialogListener);
+        if (CURRENT_BALANCE != null)
+        {
+            isWithdrawal = false;
+            addDialogBox.show();
+            addDialogBox.setTitle("DEPOSIT");
+            Button addTransactionButton =
+                addDialogBox.getaddTransactionButton();
+            OnTouchListener dialogListener = new DialogListener();
+            addTransactionButton.setOnTouchListener(dialogListener);
+        }
 
     }
 
@@ -190,7 +199,7 @@ public class ExpenseTrackerActivity
         EditText amountDialog = addDialogBox.getamountField();
         CharSequence somePlace = placeDialog.getText();
         CharSequence somePrice = amountDialog.getText();
-        ;
+        addDialogBox.addMostRecentPlace(somePlace.toString());
         Balance someBalance = new Balance();
         if (!somePlace.toString().equals("")
             && !somePrice.toString().equals(""))
@@ -281,9 +290,16 @@ public class ExpenseTrackerActivity
                 {
                     myAlertDialog.dismiss();
                     Transaction removedTransaction = transactionArray.remove(0);
-                    CURRENT_BALANCE =
-                        transactionArray.get(0).getCurrentBalance()
-                            .getFloatBalance();
+                    if (transactionArray.size() == 0)
+                    {
+                        CURRENT_BALANCE = null;
+                    }
+                    else
+                    {
+                        CURRENT_BALANCE =
+                            transactionArray.get(0).getCurrentBalance()
+                                .getFloatBalance();
+                    }
                     dataSource.deleteTransaction(removedTransaction);
                     myAdapter.notifyDataSetChanged();
                 }
@@ -330,7 +346,7 @@ public class ExpenseTrackerActivity
     private ArrayList<String> getLastTwentyPlaces()
     {
         ArrayList<String> twentyplacesList = new ArrayList<String>();
-        for (int i = 0; i < 21 && i < transactionArray.size(); i++)
+        for (int i = 0; i < 20 && i < transactionArray.size(); i++)
         {
             String place = transactionArray.get(i).getPlace().toString();
             if (!twentyplacesList.contains(place))

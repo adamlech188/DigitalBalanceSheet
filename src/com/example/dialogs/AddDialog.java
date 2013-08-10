@@ -1,25 +1,24 @@
 package com.example.dialogs;
 
-import com.example.expensetracker.Transaction;
-import java.util.ArrayList;
-import android.widget.ArrayAdapter;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.widget.AutoCompleteTextView;
-import com.example.expensetracker.R;
-import android.widget.EditText;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.widget.Button;
-import android.widget.TextView;
 import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
 import android.view.Window;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+import com.example.expensetracker.R;
+import java.util.ArrayList;
 
 // -------------------------------------------------------------------------
 /**
@@ -39,6 +38,7 @@ public class AddDialog
     private Context              currentContext;
     private TextView             titleView;
     private ArrayList<String>    lastTwentyPlaces;
+    private ArrayAdapter<String> myAdapter;
 
 
     // ----------------------------------------------------------
@@ -84,11 +84,12 @@ public class AddDialog
         TextWatcher myTextWatcher = new MyTextWatcher();
         placeField.addTextChangedListener(myTextWatcher);
 
-        ArrayAdapter<String> myAdapter =
+        myAdapter =
             new ArrayAdapter<String>(
                 currentContext,
                 android.R.layout.simple_dropdown_item_1line,
                 lastTwentyPlaces);
+
         placeField.setAdapter(myAdapter);
         amountField = (EditText)findViewById(R.id.amountDialog);
 
@@ -200,10 +201,26 @@ public class AddDialog
     // ----------------------------------------------------------
     /**
      * Sets
+     *
      * @param lastTwentyPlaces
      */
     public void setLastTwentyPlaces(ArrayList<String> lastTwentyPlaces)
     {
         this.lastTwentyPlaces = lastTwentyPlaces;
+
     }
+
+
+    // ----------------------------------------------------------
+    /**
+     * Adds the most recent place to lastTwentyPlaces list.
+     *
+     * @param place
+     */
+    public void addMostRecentPlace(String place)
+    {
+
+        myAdapter.add(place);
+    }
+
 }

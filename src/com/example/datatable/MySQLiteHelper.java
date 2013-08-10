@@ -5,19 +5,53 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+// -------------------------------------------------------------------------
+/**
+ * This my SQLiteHelper
+ *
+ *  @author Adam
+ *  @version Aug 5, 2013
+ */
 public class MySQLiteHelper
     extends SQLiteOpenHelper
 
 {
+    /**
+     * Name of table
+     */
     public static final String TABLE_TRANSACTIONS = "sometable";
+    /**
+     * Id column
+     */
     public static final String COLUMN_ID          = "_id";
+    /**
+     * Date column
+     */
     public static final String COLUMN_DATE        = "currentDate";
+    /**
+     * Place column
+     */
     public static final String COLUMN_PLACE       = "place";
+    /**
+     * Transaction column
+     */
     public static final String COLUMN_TRANSACTION = "operation";
+    /**
+     * Balance column
+     */
     public static final String COLUMN_BALANCE     = "balance";
+    /**
+     * Database name column
+     */
     public static final String DATABASE_NAME      = "transactions.db";
+    /**
+     * Version column
+     */
     public static final int    DATABASE_VERSION   = 9;
 
+    /**
+     * Create statement for sql
+     */
     public static final String DATABASE_CREATE    =
                                                       "CREATE TABLE "
                                                           + TABLE_TRANSACTIONS
@@ -34,6 +68,11 @@ public class MySQLiteHelper
                                                           + " TEXT);";
 
 
+    // ----------------------------------------------------------
+    /**
+     * Create a new MySQLiteHelper object.
+     * @param context
+     */
     public MySQLiteHelper(Context context)
     {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
