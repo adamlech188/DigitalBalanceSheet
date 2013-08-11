@@ -38,14 +38,28 @@ public class AlertDialog
     /**
      * Warning text for delete button
      */
-    public final String WARNING_DELETE_TEXT      =
-                                                     "You are about to delete the most recent transaction.\n\n Are you sure you want to continue ?  ";
+    public final String WARNING_DELETE_TEXT         =
+                                                        "You are about to delete the most recent transaction.\n\n Are you sure you want to continue ?  ";
     /**
      * Warning text for new balance sheet.
      */
-    public final String WARNING_NEW_BALANCE_TEXT =
-                                                     "Setting new balance sheet will erase all saved records. \n\n Are you sure you want to proceed ?";
-    private boolean     isDeleteButton           = false;
+    public final String WARNING_NEW_BALANCE_TEXT    =
+                                                        "Setting new balance sheet will erase all saved records. \n\n Are you sure you want to proceed ?";
+    /**
+     * Warning text for empty balance sheet.
+     */
+    public final String WARNING_EMPTY_BALANCE_SHEET =
+                                                        "Your balance sheet is empyt. \n\n Would you like to set a new one? ";
+    /**
+     * Warning text for erasing balance sheet.
+     */
+    public final String WARNING_ERASE_BALANCE_SHEET =
+                                                        "You are about to erase your current balance sheet. \n\n Are you sure you want to continue ?";
+
+    private boolean     isDeleteButton              = false;
+    private boolean     isEmptyBalanceSheet         = false;
+    private boolean     isNewBalanceSheet           = false;
+    private boolean     isEraseBalanceSheet         = false;
 
 
     // ----------------------------------------------------------
@@ -111,7 +125,7 @@ public class AlertDialog
 
     // ----------------------------------------------------------
     /**
-     * Place a description of your method here.
+     * Sets text of the alert dialog for delete button.
      *
      * @param isDeleteButton
      */
@@ -119,6 +133,9 @@ public class AlertDialog
     {
         warningTextView.setText(WARNING_DELETE_TEXT);
         this.isDeleteButton = isDeleteButton;
+        this.isEmptyBalanceSheet = false;
+        this.isNewBalanceSheet = false;
+        this.isEraseBalanceSheet = false;
     }
 
 
@@ -143,19 +160,79 @@ public class AlertDialog
     public void setNewSheetBalance(boolean isNewBalanceSheet)
     {
         warningTextView.setText(WARNING_NEW_BALANCE_TEXT);
+        this.isNewBalanceSheet = isNewBalanceSheet;
         this.isDeleteButton = false;
+        this.isEmptyBalanceSheet = false;
+        this.isEraseBalanceSheet = false;
 
     }
 
 
     // ----------------------------------------------------------
     /**
-     * Returns if the alert is for new balance sheet.
+     * Gets new balance sheet flag.
      *
      * @return isNewBalanceSheet
      */
     public boolean isNewBalanceSheet()
     {
-        return !this.isDeleteButton;
+        return this.isNewBalanceSheet;
     }
+
+
+    // ----------------------------------------------------------
+    /**
+     * Sets text of alert dialog for empty sheet balance warning.
+     *
+     * @param isEmptyBalanceSheet
+     */
+    public void setEmptySheetWarning(boolean isEmptyBalanceSheet)
+    {
+        warningTextView.setText(WARNING_EMPTY_BALANCE_SHEET);
+        this.isEmptyBalanceSheet = isEmptyBalanceSheet;
+        this.isNewBalanceSheet = false;
+        this.isEmptyBalanceSheet = false;
+        this.isEraseBalanceSheet = false;
+
+    }
+
+
+    // ----------------------------------------------------------
+    /**
+     * Gets empty balance sheet.
+     *
+     * @return isEmptyBalanceSheet
+     */
+    public boolean isEmptyBalanceSheet()
+    {
+        return this.isEmptyBalanceSheet;
+    }
+
+
+    // ----------------------------------------------------------
+    /**
+     * Sets text for erase balance dialog.
+     *
+     * @param isEraseBalanceSheet
+     */
+    public void setEraseBalanceSheet(boolean isEraseBalanceSheet)
+    {
+        warningTextView.setText(WARNING_ERASE_BALANCE_SHEET);
+        this.isEraseBalanceSheet = isEraseBalanceSheet;
+        this.isDeleteButton = false;
+        this.isEmptyBalanceSheet = false;
+        this.isNewBalanceSheet = false;
+    }
+
+
+    // ----------------------------------------------------------
+    /**
+     * Gets erase balance sheet flag;
+     * @return isEraseBalanceSheet
+     */
+    public boolean isEraseBalanceSheet()
+    {
+        return this.isEraseBalanceSheet;
+    }
+
 }

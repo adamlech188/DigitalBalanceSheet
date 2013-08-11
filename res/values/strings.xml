@@ -22,5 +22,6 @@
     <string name="enter_new_balance">Enter current balance</string>
     <string name ="create_new_table">Create new sheet</string>
     <string name = "delete">DELETE MOST RECENT</string>
+    <string name="erase_sheet">Erase Balance Sheet</string>
     
 </resources>

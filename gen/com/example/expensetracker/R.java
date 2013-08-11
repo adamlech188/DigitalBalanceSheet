@@ -247,10 +247,11 @@ containing a value of this type.
         public static final int depositButton=0x7f040014;
         public static final int end=0x7f040011;
         public static final int enterNewBalanceText=0x7f040029;
+        public static final int erase_sheet=0x7f04002d;
         public static final int fill=0x7f04000d;
         public static final int fill_horizontal=0x7f04000b;
         public static final int fill_vertical=0x7f040009;
-        public static final int help=0x7f04002d;
+        public static final int help=0x7f04002e;
         public static final int horizontal=0x7f040000;
         public static final int left=0x7f040006;
         public static final int months_list=0x7f040012;
@@ -293,6 +294,7 @@ containing a value of this type.
         public static final int deposit=0x7f060008;
         public static final int empty=0x7f060007;
         public static final int enter_new_balance=0x7f060012;
+        public static final int erase_sheet=0x7f060015;
         public static final int hello_world=0x7f060001;
         public static final int help=0x7f060011;
         public static final int menu_settings=0x7f060002;
