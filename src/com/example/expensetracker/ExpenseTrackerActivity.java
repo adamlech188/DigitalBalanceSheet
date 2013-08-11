@@ -87,9 +87,10 @@ public class ExpenseTrackerActivity
         if (transactionArray.size() > 0)
         {
             transactionArray.remove(transactionArray.size() - 1);
-            myAdapter = new MyAdapter(this, (ArrayList)transactionArray);
-            monthsListView.setAdapter(myAdapter);
+
         }
+        myAdapter = new MyAdapter(this, (ArrayList)transactionArray);
+        monthsListView.setAdapter(myAdapter);
 
     }
 
@@ -115,8 +116,31 @@ public class ExpenseTrackerActivity
     {
         if (item.getItemId() == R.id.new_balance)
         {
+            if (CURRENT_BALANCE == null)
+            {
+
+                newBalanceSheetDialog.show();
+                DialogListener dialogListener = new DialogListener();
+                newBalanceSheetDialog
+                    .setCreateNewBalanceSheetOnTouchListener(dialogListener);
+                newBalanceSheetDialog
+                    .setCancelButtonOnTouchListener(dialogListener);
+            }
+            else
+            {
+                myAlertDialog.show();
+                myAlertDialog.setNewSheetBalance(true);
+                DialogListener dialogListener = new DialogListener();
+                myAlertDialog.setYesButtonOnTouchListener(dialogListener);
+                myAlertDialog.setNoButtonOnTouchListener(dialogListener);
+            }
+
+        }
+
+        if (item.getItemId() == R.id.erase_sheet && CURRENT_BALANCE != null)
+        {
             myAlertDialog.show();
-            myAlertDialog.setNewSheetBalance(true);
+            myAlertDialog.setEraseBalanceSheet(true);
             DialogListener dialogListener = new DialogListener();
             myAlertDialog.setYesButtonOnTouchListener(dialogListener);
             myAlertDialog.setNoButtonOnTouchListener(dialogListener);
@@ -161,7 +185,6 @@ public class ExpenseTrackerActivity
         if (transactionArray.size() > 0)
         {
             myAlertDialog.show();
-
             myAlertDialog.setDeleteRecentTransation(true);
             DialogListener dialogListener = new DialogListener();
             myAlertDialog.setYesButtonOnTouchListener(dialogListener);
@@ -199,7 +222,7 @@ public class ExpenseTrackerActivity
         EditText amountDialog = addDialogBox.getamountField();
         CharSequence somePlace = placeDialog.getText();
         CharSequence somePrice = amountDialog.getText();
-        addDialogBox.addMostRecentPlace(somePlace.toString());
+        ;
         Balance someBalance = new Balance();
         if (!somePlace.toString().equals("")
             && !somePrice.toString().equals(""))
@@ -277,13 +300,24 @@ public class ExpenseTrackerActivity
                     addDialogBox.dismiss();
                 }
                 if (v.getId() == R.id.yesButton
-                    && !myAlertDialog.isDeleteButton())
+                    && myAlertDialog.isNewBalanceSheet()
+                    && CURRENT_BALANCE != null)
                 {
                     myAlertDialog.dismiss();
                     newBalanceSheetDialog.show();
                     newBalanceSheetDialog.setCancelButtonOnTouchListener(this);
                     newBalanceSheetDialog
                         .setCreateNewBalanceSheetOnTouchListener(this);
+                }
+                if (v.getId() == R.id.yesButton
+                    && myAlertDialog.isNewBalanceSheet()
+                    && CURRENT_BALANCE == null)
+                {
+                    newBalanceSheetDialog.show();
+                    newBalanceSheetDialog.setCancelButtonOnTouchListener(this);
+                    newBalanceSheetDialog
+                        .setCreateNewBalanceSheetOnTouchListener(this);
+
                 }
                 if (v.getId() == R.id.yesButton
                     && myAlertDialog.isDeleteButton())
@@ -302,6 +336,15 @@ public class ExpenseTrackerActivity
                     }
                     dataSource.deleteTransaction(removedTransaction);
                     myAdapter.notifyDataSetChanged();
+                }
+                if (v.getId() == R.id.yesButton
+                    && myAlertDialog.isEraseBalanceSheet())
+                {
+                    dataSource.truncate();
+                    transactionArray.clear();
+                    CURRENT_BALANCE = null;
+                    myAdapter.notifyDataSetChanged();
+                    myAlertDialog.dismiss();
                 }
                 if (v.getId() == R.id.noButton)
                 {
@@ -346,7 +389,7 @@ public class ExpenseTrackerActivity
     private ArrayList<String> getLastTwentyPlaces()
     {
         ArrayList<String> twentyplacesList = new ArrayList<String>();
-        for (int i = 0; i < 20 && i < transactionArray.size(); i++)
+        for (int i = 0; i < 21 && i < transactionArray.size(); i++)
         {
             String place = transactionArray.get(i).getPlace().toString();
             if (!twentyplacesList.contains(place))
