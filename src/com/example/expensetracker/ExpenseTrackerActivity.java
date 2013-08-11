@@ -36,7 +36,6 @@ public class ExpenseTrackerActivity
     private AddDialog              addDialogBox;
     private Float                  CURRENT_BALANCE = null;
     private AlertDialog            myAlertDialog;
-
     /**
      * Record array
      */
