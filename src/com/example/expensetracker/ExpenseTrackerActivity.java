@@ -36,6 +36,7 @@ public class ExpenseTrackerActivity
     private AddDialog              addDialogBox;
     private Float                  CURRENT_BALANCE = null;
     private AlertDialog            myAlertDialog;
+
     /**
      * Record array
      */
@@ -64,7 +65,15 @@ public class ExpenseTrackerActivity
         monthsListView = (ListView)findViewById(R.id.months_list);
         transactionArray = dataSource.getAllTransaction();
         addDialogBox.setLastTwentyPlaces(this.getLastTwentyPlaces());
-        if (!transactionArray.isEmpty())
+        if (transactionArray.isEmpty())
+        {
+            myAlertDialog.show();
+            myAlertDialog.setEmptySheetWarning(true);
+            DialogListener dialogListener = new DialogListener();
+            myAlertDialog.setYesButtonOnTouchListener(dialogListener);
+            myAlertDialog.setNoButtonOnTouchListener(dialogListener);
+        }
+        else
         {
             try
             {
@@ -344,6 +353,15 @@ public class ExpenseTrackerActivity
                     CURRENT_BALANCE = null;
                     myAdapter.notifyDataSetChanged();
                     myAlertDialog.dismiss();
+                }
+                if (v.getId() == R.id.yesButton
+                    && myAlertDialog.isEmptyBalanceSheet())
+                {
+                    myAlertDialog.dismiss();
+                    newBalanceSheetDialog.show();
+                    newBalanceSheetDialog
+                        .setCreateNewBalanceSheetOnTouchListener(this);
+                    newBalanceSheetDialog.setCancelButtonOnTouchListener(this);
                 }
                 if (v.getId() == R.id.noButton)
                 {

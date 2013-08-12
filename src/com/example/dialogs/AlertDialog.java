@@ -49,7 +49,7 @@ public class AlertDialog
      * Warning text for empty balance sheet.
      */
     public final String WARNING_EMPTY_BALANCE_SHEET =
-                                                        "Your balance sheet is empyt. \n\n Would you like to set a new one? ";
+                                                        "Your balance sheet is empty. \n\n Would you like to set a new one? ";
     /**
      * Warning text for erasing balance sheet.
      */
@@ -191,7 +191,7 @@ public class AlertDialog
         warningTextView.setText(WARNING_EMPTY_BALANCE_SHEET);
         this.isEmptyBalanceSheet = isEmptyBalanceSheet;
         this.isNewBalanceSheet = false;
-        this.isEmptyBalanceSheet = false;
+        this.isDeleteButton = false;
         this.isEraseBalanceSheet = false;
 
     }
@@ -228,6 +228,7 @@ public class AlertDialog
     // ----------------------------------------------------------
     /**
      * Gets erase balance sheet flag;
+     *
      * @return isEraseBalanceSheet
      */
     public boolean isEraseBalanceSheet()
