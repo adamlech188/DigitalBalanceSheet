@@ -20,8 +20,10 @@
     <string name="new_balance"> Set new Balance Sheet. </string>
     <string name="help">Help</string>
     <string name="enter_new_balance">Enter current balance</string>
-    <string name ="create_new_table">Create new sheet</string>
-    <string name = "delete">DELETE MOST RECENT</string>
+    <string name="create_new_table">Create new sheet</string>
+    <string name="delete">DELETE MOST RECENT</string>
     <string name="erase_sheet">Erase Balance Sheet</string>
-    
+    <string name="clear_view"> Clear View</string>
+    <string name="display_view">Display all transactions</string>
+
 </resources>

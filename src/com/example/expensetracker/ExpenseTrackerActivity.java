@@ -154,6 +154,16 @@ public class ExpenseTrackerActivity
             myAlertDialog.setNoButtonOnTouchListener(dialogListener);
 
         }
+        if (item.getItemId() == R.id.clear_view)
+        {
+            transactionArray.clear();
+            myAdapter.notifyDataSetChanged();
+        }
+        if (item.getItemId() == R.id.display_view)
+        {
+            transactionArray.addAll(dataSource.getAllTransaction());
+            myAdapter.notifyDataSetChanged();
+        }
         return true;
 
     }
