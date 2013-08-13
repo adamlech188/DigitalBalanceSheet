@@ -17,13 +17,17 @@
     <string name="yes">YES</string>
     <string name="no">NO</string>
     <string name="warning">Setting new balance sheet will erase all saved records. \n\n Are you sure you want to proceed ?</string>
-    <string name="new_balance"> Set new Balance Sheet. </string>
+    <string name="new_balance"> Set new Balance Sheet </string>
     <string name="help">Help</string>
     <string name="enter_new_balance">Enter current balance</string>
     <string name="create_new_table">Create new sheet</string>
     <string name="delete">DELETE MOST RECENT</string>
     <string name="erase_sheet">Erase Balance Sheet</string>
     <string name="clear_view"> Clear View</string>
-    <string name="display_view">Display all transactions</string>
+    <string name="display_view">Display</string>
+    <string name="last_15">Last 15 transactions </string>
+    <string name="last_30"> Last 30 transations</string>
+    <string name="last_60"> Last 60 transations</string>
+    <string name="all_transactions">All transactions</string>
 
 </resources>

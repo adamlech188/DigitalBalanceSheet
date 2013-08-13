@@ -89,6 +89,11 @@ public class TransactionsDataSource
     }
 
 
+    // ----------------------------------------------------------
+    /**
+     * Gets list of all transactions.
+     * @return list of all transactions
+     */
     public List<Transaction> getAllTransaction()
     {
         List<Transaction> transactions = new ArrayList<Transaction>();
@@ -116,6 +121,101 @@ public class TransactionsDataSource
     }
 
 
+    // ----------------------------------------------------------
+    /**
+     * Gets last fifteen transactions.
+     *
+     * @return list of last 15 transactions.
+     */
+    public List<Transaction> getLast15Transactions()
+    {
+        List<Transaction> transactions = new ArrayList<Transaction>();
+        Cursor cursor =
+            dataBase.query(
+                MySQLiteHelper.TABLE_TRANSACTIONS,
+                allColumns,
+                null,
+                null,
+                null,
+                null,
+                null);
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast() && transactions.size() <= 15)
+        {
+            Transaction transaction = cursorToTransaction(cursor);
+            transactions.add(0, transaction);
+            cursor.moveToNext();
+
+        }
+        // make sure to close the cursor;
+        cursor.close();
+        return transactions;
+    }
+    // ----------------------------------------------------------
+    /**
+     * Gets last fifteen transactions.
+     *
+     * @return list of last 30 transactions.
+     */
+    public List<Transaction> getLast30Transactions()
+    {
+        List<Transaction> transactions = new ArrayList<Transaction>();
+        Cursor cursor =
+            dataBase.query(
+                MySQLiteHelper.TABLE_TRANSACTIONS,
+                allColumns,
+                null,
+                null,
+                null,
+                null,
+                null);
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast() && transactions.size() <= 30)
+        {
+            Transaction transaction = cursorToTransaction(cursor);
+            transactions.add(0, transaction);
+            cursor.moveToNext();
+
+        }
+        // make sure to close the cursor;
+        cursor.close();
+        return transactions;
+    }
+    // ----------------------------------------------------------
+    /**
+     * Gets last fifteen transactions.
+     *
+     * @return list of last 60 transactions.
+     */
+    public List<Transaction> getLast60Transactions()
+    {
+        List<Transaction> transactions = new ArrayList<Transaction>();
+        Cursor cursor =
+            dataBase.query(
+                MySQLiteHelper.TABLE_TRANSACTIONS,
+                allColumns,
+                null,
+                null,
+                null,
+                null,
+                null);
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast() && transactions.size() <= 60)
+        {
+            Transaction transaction = cursorToTransaction(cursor);
+            transactions.add(0, transaction);
+            cursor.moveToNext();
+
+        }
+        // make sure to close the cursor;
+        cursor.close();
+        return transactions;
+    }
+
+    // ----------------------------------------------------------
+    /**
+     * Removes all transactions from data base.
+     */
     public void truncate()
     {
         dataBase.delete(MySQLiteHelper.TABLE_TRANSACTIONS, null, null);

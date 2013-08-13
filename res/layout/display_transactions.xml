@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" 
+    android:background="@drawable/myalertback"
+    android:padding = "5sp">
+
+    <Button
+        android:id="@+id/last_15"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/back"
+        android:textSize="22sp"
+        android:padding="5sp"
+        android:text="@string/last_15" />
+
+    <Button
+        android:id="@+id/last_30"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/last_15"
+        android:background="@drawable/back"
+        android:padding="5sp"
+        android:textSize="22sp"
+        android:text="@string/last_30" />
+
+    <Button
+        android:id="@+id/last_60"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/last_30"
+        android:background="@drawable/back"
+        android:padding="5sp"
+        android:textSize="22sp"
+        android:text="@string/last_60" />
+
+    <Button
+        android:id="@+id/all_transactions"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/last_60"
+        android:background="@drawable/back"
+        android:padding="5sp"
+        android:textSize="22sp"
+        android:text="@string/all_transactions" />
+
+</RelativeLayout>

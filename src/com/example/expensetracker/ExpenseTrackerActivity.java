@@ -1,5 +1,6 @@
 package com.example.expensetracker;
 
+import com.example.dialogs.DisplayTransactionsDialog;
 import com.example.expensetracker.MyAdapter;
 import com.example.expensetracker.Balance;
 import com.example.expensetracker.Transaction;
@@ -32,19 +33,21 @@ public class ExpenseTrackerActivity
     extends Activity
 {
 
-    private ListView               monthsListView;
-    private AddDialog              addDialogBox;
-    private Float                  CURRENT_BALANCE = null;
-    private AlertDialog            myAlertDialog;
+    private ListView                  transactionListView;
+    private AddDialog                 addDialogBox;
+    private Float                     CURRENT_BALANCE = null;
+    private AlertDialog               myAlertDialog;
+    private DisplayTransactionsDialog displayTransactionsDialog;
+    private DialogListener            dialogListener;
 
     /**
      * Record array
      */
-    List<Transaction>              transactionArray;
-    private MyAdapter              myAdapter;
-    private TransactionsDataSource dataSource;
-    private boolean                isWithdrawal    = true;
-    private NewBalanceSheetDialog  newBalanceSheetDialog;
+    List<Transaction>                 transactionArray;
+    private MyAdapter                 myAdapter;
+    private TransactionsDataSource    dataSource;
+    private boolean                   isWithdrawal    = true;
+    private NewBalanceSheetDialog     newBalanceSheetDialog;
 
 
     @Override
@@ -56,20 +59,19 @@ public class ExpenseTrackerActivity
 
         // Dialog box widgets.
         addDialogBox = new AddDialog(this);
-
         myAlertDialog = new AlertDialog(this);
+        displayTransactionsDialog = new DisplayTransactionsDialog(this);
         newBalanceSheetDialog = new NewBalanceSheetDialog(this);
-
+        dialogListener = new DialogListener();
         dataSource.open();
 
-        monthsListView = (ListView)findViewById(R.id.months_list);
-        transactionArray = dataSource.getAllTransaction();
+        transactionListView = (ListView)findViewById(R.id.transaction_list);
+        transactionArray = dataSource.getLast30Transactions();
         addDialogBox.setLastTwentyPlaces(this.getLastTwentyPlaces());
         if (transactionArray.isEmpty())
         {
             myAlertDialog.show();
             myAlertDialog.setEmptySheetWarning(true);
-            DialogListener dialogListener = new DialogListener();
             myAlertDialog.setYesButtonOnTouchListener(dialogListener);
             myAlertDialog.setNoButtonOnTouchListener(dialogListener);
         }
@@ -98,7 +100,7 @@ public class ExpenseTrackerActivity
 
         }
         myAdapter = new MyAdapter(this, (ArrayList)transactionArray);
-        monthsListView.setAdapter(myAdapter);
+        transactionListView.setAdapter(myAdapter);
 
     }
 
@@ -161,8 +163,9 @@ public class ExpenseTrackerActivity
         }
         if (item.getItemId() == R.id.display_view)
         {
-            transactionArray.addAll(dataSource.getAllTransaction());
-            myAdapter.notifyDataSetChanged();
+
+            displayTransactionsDialog.show();
+            displayTransactionsDialog.setOnTouchListener(dialogListener);
         }
         return true;
 
@@ -397,6 +400,39 @@ public class ExpenseTrackerActivity
                 if (v.getId() == R.id.cancelButton)
                 {
                     newBalanceSheetDialog.dismiss();
+                }
+                if (v.getId() == R.id.all_transactions)
+                {
+
+                    transactionArray.clear();
+                    transactionArray.addAll(dataSource.getAllTransaction());
+                    transactionArray.remove(transactionArray.size() - 1);
+                    myAdapter.notifyDataSetChanged();
+                    displayTransactionsDialog.dismiss();
+                }
+                if (v.getId() == R.id.last_15)
+                {
+                    transactionArray.clear();
+                    transactionArray.addAll(dataSource.getLast15Transactions());
+                    transactionArray.remove(transactionArray.size() - 1);
+                    myAdapter.notifyDataSetChanged();
+                    displayTransactionsDialog.dismiss();
+                }
+                if (v.getId() == R.id.last_30)
+                {
+                    transactionArray.clear();
+                    transactionArray.addAll(dataSource.getLast30Transactions());
+                    transactionArray.remove(transactionArray.size() - 1);
+                    myAdapter.notifyDataSetChanged();
+                    displayTransactionsDialog.dismiss();
+                }
+                if (v.getId() == R.id.last_60)
+                {
+                    transactionArray.clear();
+                    transactionArray.addAll(dataSource.getLast60Transactions());
+                    transactionArray.remove(transactionArray.size() - 1);
+                    myAdapter.notifyDataSetChanged();
+                    displayTransactionsDialog.dismiss();
                 }
 
             }
