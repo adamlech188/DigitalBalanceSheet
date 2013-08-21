@@ -51,6 +51,11 @@ public class TransactionsDataSource
     }
 
 
+    // ----------------------------------------------------------
+    /**
+     * Inserts transaction.
+     * @param transaction
+     */
     public void insertTransaction(Transaction transaction)
     {
         ContentValues values = new ContentValues();
@@ -106,12 +111,12 @@ public class TransactionsDataSource
                 null,
                 null,
                 null);
-        cursor.moveToFirst();
-        while (!cursor.isAfterLast())
+        cursor.moveToLast();
+        while (!cursor.isBeforeFirst())
         {
             Transaction transaction = cursorToTransaction(cursor);
-            transactions.add(0, transaction);
-            cursor.moveToNext();
+            transactions.add(transaction);
+            cursor.moveToPrevious();
 
         }
         // make sure to close the cursor;
@@ -139,12 +144,12 @@ public class TransactionsDataSource
                 null,
                 null,
                 null);
-        cursor.moveToFirst();
+        cursor.moveToLast();
         while (!cursor.isAfterLast() && transactions.size() <= 15)
         {
             Transaction transaction = cursorToTransaction(cursor);
-            transactions.add(0, transaction);
-            cursor.moveToNext();
+            transactions.add(transaction);
+            cursor.moveToPrevious();
 
         }
         // make sure to close the cursor;
@@ -169,12 +174,12 @@ public class TransactionsDataSource
                 null,
                 null,
                 null);
-        cursor.moveToFirst();
-        while (!cursor.isAfterLast() && transactions.size() <= 30)
+        cursor.moveToLast();
+        while (!cursor.isBeforeFirst() && transactions.size() <= 30)
         {
             Transaction transaction = cursorToTransaction(cursor);
-            transactions.add(0, transaction);
-            cursor.moveToNext();
+            transactions.add(transaction);
+            cursor.moveToPrevious();
 
         }
         // make sure to close the cursor;
@@ -199,12 +204,12 @@ public class TransactionsDataSource
                 null,
                 null,
                 null);
-        cursor.moveToFirst();
-        while (!cursor.isAfterLast() && transactions.size() <= 60)
+        cursor.moveToLast();
+        while (!cursor.isBeforeFirst() && transactions.size() <= 60)
         {
             Transaction transaction = cursorToTransaction(cursor);
-            transactions.add(0, transaction);
-            cursor.moveToNext();
+            transactions.add(transaction);
+            cursor.moveToPrevious();
 
         }
         // make sure to close the cursor;

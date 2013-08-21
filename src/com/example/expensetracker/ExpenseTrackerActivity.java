@@ -66,7 +66,7 @@ public class ExpenseTrackerActivity
         dataSource.open();
 
         transactionListView = (ListView)findViewById(R.id.transaction_list);
-        transactionArray = dataSource.getLast30Transactions();
+        transactionArray = dataSource.getLast15Transactions();
         addDialogBox.setLastTwentyPlaces(this.getLastTwentyPlaces());
         if (transactionArray.isEmpty())
         {
@@ -264,7 +264,6 @@ public class ExpenseTrackerActivity
 
         try
         {
-
             someBalance.setBalance(CURRENT_BALANCE.toString());
         }
         catch (Exception e)
