@@ -145,7 +145,7 @@ public class TransactionsDataSource
                 null,
                 null);
         cursor.moveToLast();
-        while (!cursor.isAfterLast() && transactions.size() <= 15)
+        while (!cursor.isBeforeFirst() && transactions.size() <= 15)
         {
             Transaction transaction = cursorToTransaction(cursor);
             transactions.add(transaction);
