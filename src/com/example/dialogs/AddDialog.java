@@ -23,204 +23,159 @@ import java.util.ArrayList;
 // -------------------------------------------------------------------------
 /**
  * Rainbow dialog class.
- *
+ * 
  * @author Adam
  * @version Jul 6, 2013
  */
-public class AddDialog
-    extends Dialog
-    implements OnTouchListener
-{
-    private AutoCompleteTextView placeField;
-    private EditText             amountField;
-    private Button               addTransactionButton;
-    private Button               cancelButton;
-    private Context              currentContext;
-    private TextView             titleView;
-    private ArrayList<String>    lastTwentyPlaces;
-    private ArrayAdapter<String> myAdapter;
+public class AddDialog extends Dialog implements OnTouchListener {
+	private AutoCompleteTextView placeField;
+	private EditText amountField;
+	private Button addTransactionButton;
+	private Button cancelButton;
+	private Context currentContext;
+	private TextView titleView;
+	private ArrayList<String> mostFrequentedPlaces;
+	private ArrayAdapter<String> arrAdapter;
 
+	// ----------------------------------------------------------
+	/**
+	 * Constructor
+	 * 
+	 * @param context
+	 */
+	public AddDialog(Context context) {
+		super(context);
+		this.currentContext = context;
 
-    // ----------------------------------------------------------
-    /**
-     * Constructor
-     *
-     * @param context
-     */
-    public AddDialog(Context context)
-    {
-        super(context);
-        this.currentContext = context;
+	}
 
-    }
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_BACK) {
+			return true;
+		}
+		return super.onKeyDown(keyCode, event);
+	}
 
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
+		setContentView(R.layout.adddialog);
 
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event)
-    {
-        if (keyCode == KeyEvent.KEYCODE_BACK)
-        {
-            return true;
-        }
-        return super.onKeyDown(keyCode, event);
-    }
+		// Buttons
+		cancelButton = (Button) findViewById(R.id.cancelButton);
+		cancelButton.setOnTouchListener(this);
 
+		addTransactionButton = (Button) findViewById(R.id.addTransactionButton);
+		addTransactionButton.setOnTouchListener(this);
 
-    @Override
-    public void onCreate(Bundle savedInstanceState)
-    {
-        getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.adddialog);
+		placeField = (AutoCompleteTextView) findViewById(R.id.placeDialog);
+		TextWatcher myTextWatcher = new MyTextWatcher();
+		placeField.addTextChangedListener(myTextWatcher);
 
-        // Buttons
-        cancelButton = (Button)findViewById(R.id.cancelButton);
-        cancelButton.setOnTouchListener(this);
+		arrAdapter = new ArrayAdapter<String>(currentContext,
+				android.R.layout.simple_dropdown_item_1line,
+				mostFrequentedPlaces);
 
-        addTransactionButton = (Button)findViewById(R.id.addTransactionButton);
-        addTransactionButton.setOnTouchListener(this);
+		placeField.setAdapter(arrAdapter);
+		amountField = (EditText) findViewById(R.id.amountDialog);
 
-        placeField = (AutoCompleteTextView)findViewById(R.id.placeDialog);
-        TextWatcher myTextWatcher = new MyTextWatcher();
-        placeField.addTextChangedListener(myTextWatcher);
+		// Title
+		titleView = (TextView) findViewById(R.id.titleView);
 
-        myAdapter =
-            new ArrayAdapter<String>(
-                currentContext,
-                android.R.layout.simple_dropdown_item_1line,
-                lastTwentyPlaces);
+	}
 
-        placeField.setAdapter(myAdapter);
-        amountField = (EditText)findViewById(R.id.amountDialog);
+	public boolean onTouch(View v, MotionEvent e) {
+		if (e.getAction() == MotionEvent.ACTION_DOWN) {
+			if (v.getId() == R.id.cancelButton) {
+				dismiss();
+				return true;
+			}
 
-        // Title
-        titleView = (TextView)findViewById(R.id.titleView);
+		}
+		return false;
+	}
 
-    }
+	// ----------------------------------------------------------
+	/**
+	 * Gets add transaction button.
+	 * 
+	 * @return addTransactionButton
+	 */
+	public Button getaddTransactionButton() {
+		if (this.addTransactionButton != null) {
+			return this.addTransactionButton;
+		} else {
+			return null;
+		}
+	}
 
+	// ----------------------------------------------------------
+	/**
+	 * Gets place Field
+	 * 
+	 * @return placeField.
+	 */
+	public EditText getplaceField() {
+		return this.placeField;
+	}
 
-    public boolean onTouch(View v, MotionEvent e)
-    {
-        if (e.getAction() == MotionEvent.ACTION_DOWN)
-        {
-            if (v.getId() == R.id.cancelButton)
-            {
-                dismiss();
-                return true;
-            }
+	// ----------------------------------------------------------
+	/**
+	 * Gets amount field
+	 * 
+	 * @return amount field.
+	 */
+	public EditText getamountField() {
+		return this.amountField;
+	}
 
-        }
-        return false;
-    }
+	public void setTitle(CharSequence title) {
+		titleView.setText(title);
+	}
 
+	private class MyTextWatcher implements TextWatcher {
 
-    // ----------------------------------------------------------
-    /**
-     * Gets add transaction button.
-     *
-     * @return addTransactionButton
-     */
-    public Button getaddTransactionButton()
-    {
-        if (this.addTransactionButton != null)
-        {
-            return this.addTransactionButton;
-        }
-        else
-        {
-            return null;
-        }
-    }
+		public void afterTextChanged(Editable s) {
+			// TODO Auto-generated method stub
 
+		}
 
-    // ----------------------------------------------------------
-    /**
-     * Gets place Field
-     *
-     * @return placeField.
-     */
-    public EditText getplaceField()
-    {
-        return this.placeField;
-    }
+		public void beforeTextChanged(CharSequence s, int start, int count,
+				int after) {
+			// TODO Auto-generated method stub
 
+		}
 
-    // ----------------------------------------------------------
-    /**
-     * Gets amount field
-     *
-     * @return amount field.
-     */
-    public EditText getamountField()
-    {
-        return this.amountField;
-    }
+		public void onTextChanged(CharSequence s, int start, int before,
+				int count) {
+			// TODO Auto-generated method stub
 
+		}
 
-    public void setTitle(CharSequence title)
-    {
-        titleView.setText(title);
-    }
+	}
 
+	// ----------------------------------------------------------
+	/**
+	 * Sets
+	 * 
+	 * @param lastTwentyPlaces
+	 */
+	public void setMostFrequentedPlaces(ArrayList<String> mostFrequentedPlaces) {
+		this.mostFrequentedPlaces = mostFrequentedPlaces;
 
-    private class MyTextWatcher
-        implements TextWatcher
-    {
+	}
 
-        public void afterTextChanged(Editable s)
-        {
-            // TODO Auto-generated method stub
+	// ----------------------------------------------------------
+	/**
+	 * Adds the most recent place to  most frequented places list.
+	 * 
+	 * @param place
+	 */
+	public void addMostRecentPlace(String place) {
 
-        }
-
-
-        public void beforeTextChanged(
-            CharSequence s,
-            int start,
-            int count,
-            int after)
-        {
-            // TODO Auto-generated method stub
-
-        }
-
-
-        public void onTextChanged(
-            CharSequence s,
-            int start,
-            int before,
-            int count)
-        {
-            // TODO Auto-generated method stub
-
-        }
-
-    }
-
-
-    // ----------------------------------------------------------
-    /**
-     * Sets
-     *
-     * @param lastTwentyPlaces
-     */
-    public void setLastTwentyPlaces(ArrayList<String> lastTwentyPlaces)
-    {
-        this.lastTwentyPlaces = lastTwentyPlaces;
-
-    }
-
-
-    // ----------------------------------------------------------
-    /**
-     * Adds the most recent place to lastTwentyPlaces list.
-     *
-     * @param place
-     */
-    public void addMostRecentPlace(String place)
-    {
-
-        myAdapter.add(place);
-    }
+		arrAdapter.add(place);
+	}
 
 }

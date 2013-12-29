@@ -103,6 +103,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper
 	public void onCreate(SQLiteDatabase db) {
 		db.execSQL(DATABASE_CREATE);
 		db.execSQL(FREQ_TABLE_CREATE);
+		db.execSQL(MIN_FREQ_TRIGGER_CREATE);
 
 	}
 

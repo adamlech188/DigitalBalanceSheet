@@ -191,6 +191,26 @@ public class TransactionsDataSource {
 		return transaction;
 	}
 
+	/**
+	 * Gets list of most frequented places.
+	 * 
+	 * @param place
+	 */
+	public ArrayList<String> getMostFrequentedPlaces() {
+		ArrayList<String> frequentedPlaces = new ArrayList<String>();
+		String[] placeColumn = { "place" };
+		Cursor cursor = dataBase.query(MySQLiteHelper.TABLE_FREQUENT_PLACES,
+				placeColumn , null, null, null, null, null);
+		cursor.moveToFirst(); 
+		while(!cursor.isAfterLast()) {
+			String placeString = cursor.getString(0); 
+			frequentedPlaces.add(placeString); 
+			cursor.moveToNext(); 
+		}
+
+		return frequentedPlaces;
+	}
+
 	private void insertLastFrequentedPlace(String place) {
 		ContentValues values = new ContentValues();
 		values.put(MySQLiteHelper.COLUMN_FREQEUNCY, 1);
@@ -203,6 +223,6 @@ public class TransactionsDataSource {
 					+ MySQLiteHelper.COLUMN_FREQEUNCY + "+ 1" + " WHERE "
 					+ MySQLiteHelper.COLUMN_PLACE + "=" + "'" + place + "'");
 		}
-		//dataBase.execSQL(MySQLiteHelper.MIN_FREQ_TRIGGER_CREATE);
+
 	}
 }
